@@ -21,15 +21,16 @@
     --apw-tertiary-bg: #178093;          /* End of gradient */
     --apw-text-color: #fff;              /* Main text color */
     --apw-dark-text: #0D252C;            /* Dark text color */
-    --apw-light-text: #fff;              /* Light text color */
     --apw-link-color: #00AADE;           /* Link color */
-    --apw-card-bg: #003E57;              /* Card background (same as primary) */
+    --apw-card-bg: #003E57;              /* Card background */
     --apw-content-bg: #fff;              /* Content background */
     --apw-border-color: rgba(255,255,255,0.1); /* Border color */
     --apw-hover-color: #004a6a;          /* Hover state background */
+    --apw-caret-color: #FFB100;          /* Dropdown caret color */
 
     /* Typography */
     --apw-font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --apw-heading-font-family: 'Lexend', var(--apw-font-family);
     --apw-font-size-sm: 0.875rem;
     --apw-font-size-base: 1rem;
     --apw-font-size-md: 1.125rem;
@@ -38,7 +39,8 @@
     --apw-line-height: 1.6;
 
     /* Specific typography sizes */
-    --apw-title-size: 30px;
+    --apw-title-size: 64px;
+    --apw-dropdown-size: 30px; /* Updated to match title size better */
     --apw-text-size: 21px;
     --apw-button-line-height: 24px;
     --apw-description-line-height: 30px;
@@ -48,7 +50,6 @@
     --apw-card-height: 626px;
     --apw-image-width: 427px;
     --apw-image-height: 264px;
-    --apw-row-width: 1387px;
 }
 
 /* ----------------------------------------
@@ -60,8 +61,7 @@
     color: var(--apw-text-color);
     line-height: var(--apw-line-height);
     width: 100%;
-    max-width: var(--apw-row-width);
-    margin: 0 auto var(--apw-spacing-lg);
+    margin-bottom: var(--apw-spacing-lg);
 }
 
 /* ----------------------------------------
@@ -70,54 +70,56 @@
 .apw-solutions-header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center; /* Center content */
     margin-bottom: var(--apw-spacing-lg);
-    background-color: var(--apw-primary-bg);
-    padding: var(--apw-spacing-lg) var(--apw-spacing-xl);
-    border-radius: 16px 16px 0 0;
+    background-color: transparent; /* No background */
+    padding: var(--apw-spacing-md) var(--apw-spacing-lg);
+    text-align: center;
 }
 
 .apw-solutions-title {
     margin: 0;
-    font: normal normal 800 var(--apw-title-size)/var(--apw-button-line-height) var(--apw-font-family);
-    letter-spacing: 0px;
+    font-family: var(--apw-heading-font-family);
+    font-size: var(--apw-title-size);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: 0;
     color: var(--apw-text-color);
-    text-align: center;
+    display: inline-block;
 }
 
 .apw-solutions-filter {
     position: relative;
+    display: inline-flex;
+    align-items: center;
+    margin-left: 15px; /* Space between title and dropdown */
 }
 
 .apw-solutions-category-select {
-    min-width: 240px;
-    padding: var(--apw-spacing-md) var(--apw-spacing-lg);
+    height: 40px; /* Fixed height */
+    padding: 0 40px 0 15px; /* Adjusted padding */
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    background: transparent linear-gradient(215deg, var(--apw-secondary-bg) 0%, var(--apw-tertiary-bg) 100%) 0% 0% no-repeat padding-box;
+    background: transparent linear-gradient(215deg, #244B5A 0%, #178093 100%) 0% 0% no-repeat padding-box;
     color: var(--apw-text-color);
     border: none;
-    border-radius: 5px;
-    font: normal normal bold var(--apw-text-size)/var(--apw-button-line-height) var(--apw-font-family);
-    letter-spacing: 0px;
-    text-align: center;
+    border-radius: 58px; /* Exact border radius */
+    font-family: var(--apw-font-family);
+    font-size: var(--apw-dropdown-size);
+    font-weight: 600;
+    line-height: 40px; /* Match height for vertical centering */
+    text-align: center; /* Center text */
     cursor: pointer;
-    padding-right: 40px;
+    min-width: 170px; /* Ensure enough space for text */
 }
 
-.apw-solutions-filter:after {
-    content: "";
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 0;
-    height: 0;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-top: 6px solid var(--apw-text-color);
-    pointer-events: none;
+/* Font Awesome caret styling */
+.fa-caret-down {
+    color: var(--apw-caret-color);
+    font-size: 16px;
+    margin-left: -25px; /* Pull it inside the select padding */
+    pointer-events: none; /* Ensures clicks pass through to select */
 }
 
 /* ----------------------------------------
@@ -137,8 +139,7 @@
     display: flex;
     flex-wrap: wrap;
     margin: 0 -15px;
-    width: 100%;
-    max-width: var(--apw-row-width);
+    justify-content: center; /* Center cards */
 }
 
 .col-md-4 {
@@ -146,6 +147,7 @@
     padding: 0 15px;
     margin-bottom: var(--apw-spacing-lg);
     display: flex;
+    justify-content: center; /* Center card in column */
 }
 
 /* ----------------------------------------
@@ -173,37 +175,44 @@
 
 .apw-solution-category {
     display: inline-block;
-    padding: var(--apw-spacing-sm) var(--apw-spacing-md);
-    background: transparent linear-gradient(215deg, var(--apw-secondary-bg) 0%, var(--apw-tertiary-bg) 100%) 0% 0% no-repeat padding-box;
+    padding: 8px 20px;
+    background: transparent linear-gradient(215deg, #244B5A 0%, #178093 100%) 0% 0% no-repeat padding-box;
     color: var(--apw-text-color);
-    border-radius: 5px;
-    font: normal normal bold var(--apw-text-size)/var(--apw-button-line-height) var(--apw-font-family);
+    border-radius: 58px;
+    font: normal normal bold 14px/24px var(--apw-font-family);
     letter-spacing: 0px;
-    margin: var(--apw-spacing-md);
+    margin: var(--apw-spacing-md) auto;
     text-transform: capitalize;
+    text-align: center;
+    /* Center category label */
+    align-self: center;
 }
 
 .apw-solution-title {
     font: normal normal bold var(--apw-text-size)/var(--apw-button-line-height) var(--apw-font-family);
     margin: 0 var(--apw-spacing-md) var(--apw-spacing-md);
-    color: var(--apw-light-text);
+    color: var(--apw-text-color);
+    text-align: center; /* Center title */
 }
 
 .apw-solution-excerpt {
     padding: var(--apw-spacing-md);
-    margin: 0 var(--apw-spacing-md) var(--apw-spacing-md);
+    margin: 0;
     background-color: var(--apw-content-bg);
-    border-radius: 8px;
     font: normal normal medium var(--apw-text-size)/var(--apw-description-line-height) var(--apw-font-family);
     color: var(--apw-dark-text);
-    flex-grow: 1;
+    text-align: center; /* Center description */
+    /* Reduced space after description */
+    flex: 0 0 auto;
 }
 
 .apw-solution-image {
-    width: var(--apw-image-width);
+    width: 100%; /* Full width */
     height: var(--apw-image-height);
     overflow: hidden;
-    margin: 0 auto var(--apw-spacing-md);
+    margin: 0; /* Remove margins */
+    /* Fix image to be flush with container */
+    display: block;
 }
 
 .apw-solution-image img {
@@ -211,16 +220,21 @@
     height: 100%;
     object-fit: cover;
     display: block;
+    /* Remove any borders */
+    border: none;
+    border-radius: 0;
 }
 
 .apw-solution-link {
-    display: inline-block;
+    display: block;
+    width: 100%;
+    padding: var(--apw-spacing-md);
+    background-color: #fff; /* White background as specified */
     font: normal normal bold var(--apw-text-size)/var(--apw-button-line-height) var(--apw-font-family);
     letter-spacing: 0px;
     color: var(--apw-link-color);
     text-align: center;
-    margin: 0 var(--apw-spacing-md) var(--apw-spacing-md);
-    align-self: center;
+    margin-top: auto;
 }
 
 /* ----------------------------------------
@@ -232,7 +246,7 @@
     background-color: var(--apw-hover-color);
     border-radius: 5px;
     text-align: center;
-    color: var(--apw-light-text);
+    color: var(--apw-text-color);
 }
 
 .apw-solutions-grid.loading:after {
@@ -280,81 +294,71 @@
 /* ----------------------------------------
    8. RESPONSIVE STYLES
    ---------------------------------------- */
-@media screen and (max-width: 1400px) {
+/* Desktop (850px and above) - Default styles above apply */
+
+/* Tablet (550px to 849px) */
+@media screen and (max-width: 849px) {
     :root {
-        --apw-row-width: 100%;
-    }
-
-    .apw-solution-card {
-        max-width: 100%;
-        height: auto;
-        min-height: 550px;
-    }
-
-    .apw-solution-image {
-        width: 100%;
-        height: auto;
-        max-height: var(--apw-image-height);
-    }
-}
-
-@media screen and (max-width: 991px) {
-    .apw-solutions-header {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        padding: var(--apw-spacing-md);
-    }
-
-    .apw-solutions-title {
-        margin-bottom: var(--apw-spacing-md);
-    }
-
-    .col-md-4 {
-        width: 50%;
-    }
-
-    .apw-solution-card {
-        min-height: 500px;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    :root {
-        --apw-title-size: 24px;
+        --apw-title-size: 40px;
+        --apw-dropdown-size: 22px;
         --apw-text-size: 18px;
     }
 
     .apw-solutions-header {
-        padding: var(--apw-spacing-md) var(--apw-spacing-sm);
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: var(--apw-spacing-sm);
+        justify-content: center;
     }
 
-    .apw-solutions-category-select {
-        min-width: 200px;
-        padding: var(--apw-spacing-sm) var(--apw-spacing-md);
+    .col-md-4 {
+        width: 50%; /* 2 columns on tablet */
+    }
+
+    .apw-solution-card {
+        max-width: 100%;
+        min-height: 500px;
+    }
+
+    .apw-solution-image {
+        height: auto;
+        max-height: 220px;
+    }
+}
+
+/* Mobile (549px and below) */
+@media screen and (max-width: 549px) {
+    :root {
+        --apw-title-size: 32px;
+        --apw-dropdown-size: 18px;
+        --apw-text-size: 16px;
+    }
+
+    .apw-solutions-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .apw-solutions-filter {
+        margin-left: 0;
+    }
+
+    .col-md-4 {
+        width: 100%; /* 1 column on mobile */
     }
 
     .apw-solution-card {
         min-height: 450px;
     }
-}
 
-@media screen and (max-width: 576px) {
-    .col-md-4 {
-        width: 100%;
-    }
-
-    .apw-solution-card {
-        min-height: 400px;
+    .apw-solution-category {
+        padding: 6px 15px;
+        font-size: 12px;
     }
 
     .apw-solution-image {
         height: auto;
-        max-height: 200px;
-    }
-
-    .apw-solutions-category-select {
-        width: 100%;
-        min-width: unset;
+        max-height: 180px;
     }
 }
