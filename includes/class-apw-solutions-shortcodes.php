@@ -130,7 +130,8 @@ class APW_Solutions_Shortcodes {
                 'categories' => $categories,
                 'default_category' => $default_category,
                 'solutions' => $solutions,
-                'container_id' => $container_id
+                'container_id' => $container_id,
+                'plugin' => $this->plugin // Pass the plugin instance to the template
             ) );
         } catch ( Exception $e ) {
             $this->debug( 'Error loading template: ' . $e->getMessage(), 'ERROR' );
@@ -182,6 +183,7 @@ class APW_Solutions_Shortcodes {
                 'category' => $atts['category'],
                 'category_name' => $this->get_category_name( $atts['category'] ),
                 'solutions' => $solutions,
+                'plugin' => $this->plugin // Pass the plugin instance to the template
             ) );
         } catch ( Exception $e ) {
             $this->debug( 'Error loading template: ' . $e->getMessage(), 'ERROR' );
@@ -232,7 +234,8 @@ class APW_Solutions_Shortcodes {
             // Load solutions grid template (partial for AJAX)
             $this->plugin->get_template( 'solutions-grid-items.php', array(
                 'solutions' => $solutions,
-                'category_name' => $category_name
+                'category_name' => $category_name,
+                'plugin' => $this->plugin // Pass the plugin instance to the template
             ) );
 
             $html = ob_get_clean();
