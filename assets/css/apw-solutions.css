@@ -1,0 +1,360 @@
+/**
+ * APW Solutions Plugin - CSS Styles
+ *
+ * Styles for the Solutions shortcodes display and filtering
+ */
+
+/* ----------------------------------------
+   1. CSS VARIABLES (CUSTOM PROPERTIES)
+   ---------------------------------------- */
+:root {
+    /* Spacing values */
+    --apw-spacing-xs: 5px;
+    --apw-spacing-sm: 10px;
+    --apw-spacing-md: 20px;
+    --apw-spacing-lg: 30px;
+    --apw-spacing-xl: 40px;
+
+    /* Colors */
+    --apw-primary-bg: #003E57;           /* Main background color */
+    --apw-secondary-bg: #244B5A;         /* Start of gradient */
+    --apw-tertiary-bg: #178093;          /* End of gradient */
+    --apw-text-color: #fff;              /* Main text color */
+    --apw-dark-text: #0D252C;            /* Dark text color */
+    --apw-light-text: #fff;              /* Light text color */
+    --apw-link-color: #00AADE;           /* Link color */
+    --apw-card-bg: #003E57;              /* Card background (same as primary) */
+    --apw-content-bg: #fff;              /* Content background */
+    --apw-border-color: rgba(255,255,255,0.1); /* Border color */
+    --apw-hover-color: #004a6a;          /* Hover state background */
+
+    /* Typography */
+    --apw-font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --apw-font-size-sm: 0.875rem;
+    --apw-font-size-base: 1rem;
+    --apw-font-size-md: 1.125rem;
+    --apw-font-size-lg: 1.25rem;
+    --apw-font-size-xl: 1.5rem;
+    --apw-line-height: 1.6;
+
+    /* Specific typography sizes */
+    --apw-title-size: 30px;
+    --apw-text-size: 21px;
+    --apw-button-line-height: 24px;
+    --apw-description-line-height: 30px;
+
+    /* Layout dimensions */
+    --apw-card-width: 427px;
+    --apw-card-height: 626px;
+    --apw-image-width: 427px;
+    --apw-image-height: 264px;
+    --apw-row-width: 1387px;
+}
+
+/* ----------------------------------------
+   2. GENERAL CONTAINER STYLES
+   ---------------------------------------- */
+.apw-solutions-container,
+.apw-solutions-category-container {
+    font-family: var(--apw-font-family);
+    color: var(--apw-text-color);
+    line-height: var(--apw-line-height);
+    width: 100%;
+    max-width: var(--apw-row-width);
+    margin: 0 auto var(--apw-spacing-lg);
+}
+
+/* ----------------------------------------
+   3. HEADER AND FILTER SECTION
+   ---------------------------------------- */
+.apw-solutions-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--apw-spacing-lg);
+    background-color: var(--apw-primary-bg);
+    padding: var(--apw-spacing-lg) var(--apw-spacing-xl);
+    border-radius: 16px 16px 0 0;
+}
+
+.apw-solutions-title {
+    margin: 0;
+    font: normal normal 800 var(--apw-title-size)/var(--apw-button-line-height) var(--apw-font-family);
+    letter-spacing: 0px;
+    color: var(--apw-text-color);
+    text-align: center;
+}
+
+.apw-solutions-filter {
+    position: relative;
+}
+
+.apw-solutions-category-select {
+    min-width: 240px;
+    padding: var(--apw-spacing-md) var(--apw-spacing-lg);
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: transparent linear-gradient(215deg, var(--apw-secondary-bg) 0%, var(--apw-tertiary-bg) 100%) 0% 0% no-repeat padding-box;
+    color: var(--apw-text-color);
+    border: none;
+    border-radius: 5px;
+    font: normal normal bold var(--apw-text-size)/var(--apw-button-line-height) var(--apw-font-family);
+    letter-spacing: 0px;
+    text-align: center;
+    cursor: pointer;
+    padding-right: 40px;
+}
+
+.apw-solutions-filter:after {
+    content: "";
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid var(--apw-text-color);
+    pointer-events: none;
+}
+
+/* ----------------------------------------
+   4. GRID LAYOUT
+   ---------------------------------------- */
+.apw-solutions-grid {
+    position: relative;
+    transition: opacity 0.3s ease;
+}
+
+.apw-solutions-grid.loading {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -15px;
+    width: 100%;
+    max-width: var(--apw-row-width);
+}
+
+.col-md-4 {
+    width: 33.333%;
+    padding: 0 15px;
+    margin-bottom: var(--apw-spacing-lg);
+    display: flex;
+}
+
+/* ----------------------------------------
+   5. SOLUTION CARD STYLING
+   ---------------------------------------- */
+.apw-solution-card {
+    background-color: var(--apw-card-bg);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: var(--apw-card-width);
+    height: var(--apw-card-height);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.apw-solution-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    background-color: var(--apw-hover-color);
+}
+
+.apw-solution-category {
+    display: inline-block;
+    padding: var(--apw-spacing-sm) var(--apw-spacing-md);
+    background: transparent linear-gradient(215deg, var(--apw-secondary-bg) 0%, var(--apw-tertiary-bg) 100%) 0% 0% no-repeat padding-box;
+    color: var(--apw-text-color);
+    border-radius: 5px;
+    font: normal normal bold var(--apw-text-size)/var(--apw-button-line-height) var(--apw-font-family);
+    letter-spacing: 0px;
+    margin: var(--apw-spacing-md);
+    text-transform: capitalize;
+}
+
+.apw-solution-title {
+    font: normal normal bold var(--apw-text-size)/var(--apw-button-line-height) var(--apw-font-family);
+    margin: 0 var(--apw-spacing-md) var(--apw-spacing-md);
+    color: var(--apw-light-text);
+}
+
+.apw-solution-excerpt {
+    padding: var(--apw-spacing-md);
+    margin: 0 var(--apw-spacing-md) var(--apw-spacing-md);
+    background-color: var(--apw-content-bg);
+    border-radius: 8px;
+    font: normal normal medium var(--apw-text-size)/var(--apw-description-line-height) var(--apw-font-family);
+    color: var(--apw-dark-text);
+    flex-grow: 1;
+}
+
+.apw-solution-image {
+    width: var(--apw-image-width);
+    height: var(--apw-image-height);
+    overflow: hidden;
+    margin: 0 auto var(--apw-spacing-md);
+}
+
+.apw-solution-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.apw-solution-link {
+    display: inline-block;
+    font: normal normal bold var(--apw-text-size)/var(--apw-button-line-height) var(--apw-font-family);
+    letter-spacing: 0px;
+    color: var(--apw-link-color);
+    text-align: center;
+    margin: 0 var(--apw-spacing-md) var(--apw-spacing-md);
+    align-self: center;
+}
+
+/* ----------------------------------------
+   6. LOADING AND ERROR STATES
+   ---------------------------------------- */
+.apw-solutions-error,
+.apw-solutions-empty {
+    padding: var(--apw-spacing-md);
+    background-color: var(--apw-hover-color);
+    border-radius: 5px;
+    text-align: center;
+    color: var(--apw-light-text);
+}
+
+.apw-solutions-grid.loading:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    border-top: 4px solid var(--apw-tertiary-bg);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* ----------------------------------------
+   7. UTILITY CLASSES
+   ---------------------------------------- */
+.apw-hidden {
+    display: none;
+}
+
+.apw-text-center {
+    text-align: center;
+}
+
+.apw-mb-sm {
+    margin-bottom: var(--apw-spacing-sm);
+}
+
+.apw-mb-md {
+    margin-bottom: var(--apw-spacing-md);
+}
+
+.apw-mb-lg {
+    margin-bottom: var(--apw-spacing-lg);
+}
+
+/* ----------------------------------------
+   8. RESPONSIVE STYLES
+   ---------------------------------------- */
+@media screen and (max-width: 1400px) {
+    :root {
+        --apw-row-width: 100%;
+    }
+
+    .apw-solution-card {
+        max-width: 100%;
+        height: auto;
+        min-height: 550px;
+    }
+
+    .apw-solution-image {
+        width: 100%;
+        height: auto;
+        max-height: var(--apw-image-height);
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .apw-solutions-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: var(--apw-spacing-md);
+    }
+
+    .apw-solutions-title {
+        margin-bottom: var(--apw-spacing-md);
+    }
+
+    .col-md-4 {
+        width: 50%;
+    }
+
+    .apw-solution-card {
+        min-height: 500px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    :root {
+        --apw-title-size: 24px;
+        --apw-text-size: 18px;
+    }
+
+    .apw-solutions-header {
+        padding: var(--apw-spacing-md) var(--apw-spacing-sm);
+    }
+
+    .apw-solutions-category-select {
+        min-width: 200px;
+        padding: var(--apw-spacing-sm) var(--apw-spacing-md);
+    }
+
+    .apw-solution-card {
+        min-height: 450px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .col-md-4 {
+        width: 100%;
+    }
+
+    .apw-solution-card {
+        min-height: 400px;
+    }
+
+    .apw-solution-image {
+        height: auto;
+        max-height: 200px;
+    }
+
+    .apw-solutions-category-select {
+        width: 100%;
+        min-width: unset;
+    }
+}
