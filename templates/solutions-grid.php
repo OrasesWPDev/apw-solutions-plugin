@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="apw-solutions-container" id="<?php echo esc_attr( $container_id ); ?>">
     <div class="apw-solutions-header">
-        <h2 class="apw-solutions-title">Solution By</h2>
+        <h2 class="apw-solutions-title">Solutions By</h2>
         <div class="apw-solutions-filter">
             <select class="apw-solutions-category-select">
                 <?php foreach ( $categories as $category ) : ?>

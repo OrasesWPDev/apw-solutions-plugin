@@ -77,15 +77,19 @@
     text-align: center;
 }
 
-.apw-solutions-title {
+/* Override Flatsome theme styles for the title */
+.apw-solutions-container .apw-solutions-title,
+.apw-solutions-category-container .apw-solutions-title {
     margin: 0;
-    font-family: var(--apw-heading-font-family);
+    font-family: Montserrat;
     font-size: var(--apw-title-size);
-    font-weight: 800;
+    font-weight: 600;
     line-height: 1.2;
     letter-spacing: 0;
-    color: var(--apw-text-color);
+    color: var(--apw-text-color) !important;
     display: inline-block;
+    width: auto !important; /* Override Flatsome's 100% width */
+    max-width: none !important; /* Ensure Flatsome doesn't constrain width */
 }
 
 .apw-solutions-filter {
@@ -96,8 +100,8 @@
 }
 
 .apw-solutions-category-select {
-    height: 40px; /* Fixed height */
-    padding: 0 40px 0 15px; /* Adjusted padding */
+    height: 100px; /* Fixed height */
+    padding: 0 40px 0 15px; /* Adjusted padding with more space on right for caret */
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -105,23 +109,47 @@
     color: var(--apw-text-color);
     border: none;
     border-radius: 58px; /* Exact border radius */
-    font-family: var(--apw-font-family);
+    font-family: 'Montserrat', var(--apw-font-family);
     font-size: var(--apw-dropdown-size);
     font-weight: 600;
-    line-height: 40px; /* Match height for vertical centering */
+    line-height: 1.2;
+    letter-spacing: 0;
+    margin: 0;
     text-align: center; /* Center text */
     cursor: pointer;
     min-width: 170px; /* Ensure enough space for text */
+    display: inline-block;
+    width: auto;
+    max-width: none !important;
+}
+
+/* Hide native dropdown arrow in IE */
+.apw-solutions-category-select::-ms-expand {
+    display: none;
 }
 
 /* Font Awesome caret styling */
-.fa-caret-down {
+.apw-solutions-filter .fa-caret-down {
     color: var(--apw-caret-color);
     font-size: 16px;
-    margin-left: -25px; /* Pull it inside the select padding */
+    position: absolute;
+    right: 20px; /* Position further right */
+    top: 50%;
+    transform: translateY(-50%);
     pointer-events: none; /* Ensures clicks pass through to select */
+    z-index: 1;
 }
 
+/* Hover state for select dropdown */
+.apw-solutions-category-select:hover {
+    background: transparent linear-gradient(215deg, #1f3f4c 0%, #126b7b 100%) 0% 0% no-repeat padding-box;
+}
+
+/* Focus state for select dropdown */
+.apw-solutions-category-select:focus {
+    outline: none;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
 /* ----------------------------------------
    4. GRID LAYOUT
    ---------------------------------------- */
@@ -188,11 +216,15 @@
     align-self: center;
 }
 
-.apw-solution-title {
+/* Fix for Flatsome theme width interference with solution titles */
+.apw-solution-card .apw-solution-title {
     font: normal normal bold var(--apw-text-size)/var(--apw-button-line-height) var(--apw-font-family);
     margin: 0 var(--apw-spacing-md) var(--apw-spacing-md);
-    color: var(--apw-text-color);
+    color: var(--apw-text-color) !important;
     text-align: center; /* Center title */
+    width: auto !important; /* Override Flatsome's 100% width */
+    max-width: none !important; /* Ensure Flatsome doesn't constrain width */
+    display: block;
 }
 
 .apw-solution-excerpt {
@@ -204,15 +236,18 @@
     text-align: center; /* Center description */
     /* Reduced space after description */
     flex: 0 0 auto;
+    font-size: 21px;
 }
 
 .apw-solution-image {
     width: 100%; /* Full width */
-    height: var(--apw-image-height);
+    height: auto; /* Changed from fixed height to auto */
     overflow: hidden;
     margin: 0; /* Remove margins */
     /* Fix image to be flush with container */
     display: block;
+    /* Push the link to bottom */
+    margin-top: auto;
 }
 
 .apw-solution-image img {
@@ -223,6 +258,7 @@
     /* Remove any borders */
     border: none;
     border-radius: 0;
+    vertical-align: bottom; /* Removes any gap below image */
 }
 
 .apw-solution-link {
@@ -234,7 +270,24 @@
     letter-spacing: 0px;
     color: var(--apw-link-color);
     text-align: center;
-    margin-top: auto;
+    /* Remove margin-top as image now pushes it to bottom */
+    margin-top: 0;
+    /* Ensure no space between image and link */
+    line-height: 1;
+}
+
+/* Fix card layout to ensure image is at bottom followed immediately by link */
+.apw-solution-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.apw-solution-card > * {
+    flex-shrink: 0;
+}
+
+.apw-solution-card > .apw-solution-excerpt {
+    flex-grow: 1;
 }
 
 /* ----------------------------------------

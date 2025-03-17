@@ -216,4 +216,73 @@
         }
     }
 
+    /**
+     * Enhance select dropdown styling and caret positioning
+     */
+    function enhanceSelectDropdown() {
+        // Target all select elements in the solutions container
+        var selects = document.querySelectorAll('.apw-solutions-category-select');
+
+        selects.forEach(function(select) {
+            // Hide the native dropdown arrow using multiple CSS properties for cross-browser support
+            select.style.appearance = 'none';
+            select.style.webkitAppearance = 'none';
+            select.style.mozAppearance = 'none';
+            select.style.backgroundImage = 'none';
+
+            // Apply text styling directly through JavaScript to override any theme styles
+            select.style.fontFamily = 'Montserrat, var(--apw-font-family)';
+            select.style.fontSize = 'var(--apw-title-size)';
+            select.style.fontWeight = '600';
+            select.style.lineHeight = '1.2';
+            select.style.letterSpacing = '0';
+            select.style.color = 'var(--apw-text-color)';
+            select.style.margin = '0';
+            select.style.display = 'inline-block';
+            select.style.width = 'auto';
+            select.style.maxWidth = 'none !important';
+
+            // Apply background gradient to match design
+            select.style.background = 'linear-gradient(215deg, #244B5A 0%, #178093 100%)';
+            select.style.borderRadius = '58px';
+            select.style.border = 'none';
+            select.style.padding = '0 50px 0 50px'; // Extra padding on right for caret
+
+            // Get the parent container
+            var filterContainer = select.closest('.apw-solutions-filter');
+            if (filterContainer) {
+                // Ensure container is properly positioned for absolute positioning
+                filterContainer.style.position = 'relative';
+
+                // Find the Font Awesome icon
+                var icon = filterContainer.querySelector('.fa-caret-down');
+                if (icon) {
+                    // Position icon to the right
+                    icon.style.position = 'absolute';
+                    icon.style.right = '32px'; // Adjust this to move it further right
+                    icon.style.transform = 'translateY(-50%)';
+                    icon.style.pointerEvents = 'none';
+                    icon.style.color = 'var(--apw-caret-color)';
+                    icon.style.fontSize = '30px';
+                    icon.style.zIndex = '1';
+                }
+            }
+        });
+
+        // For IE support
+        var style = document.createElement('style');
+        style.textContent = '.apw-solutions-category-select::-ms-expand { display: none; }';
+        document.head.appendChild(style);
+    }
+
+        // Run on document ready
+            document.addEventListener('DOMContentLoaded', function() {
+                enhanceSelectDropdown();
+            });
+
+        // Also run when AJAX content is loaded
+            jQuery(document).ajaxComplete(function() {
+                enhanceSelectDropdown();
+            });
+
 })(jQuery);
